@@ -69,6 +69,9 @@ exports.getMyProfile = async (req, res, next) => {
 // Update profile
 exports.updateMyProfile = async (req, res, next) => {
   try {
+    if (req.file) {
+      req.body.image = req.file.path;
+    }
     const updatedOwner = await Owner.findByIdAndUpdate(req.user._id, req.body, {
       new: true,
       runValidators: true,
